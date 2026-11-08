@@ -1,10 +1,10 @@
-; Engine configuration file.
-; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
+; Arquivo de configuracao da engine.
+; E preferivel edita-lo pela interface do editor,
+; pois nem todos os parametros sao obvios.
 ;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
+; Formato:
+;   [secao] ; a secao fica entre colchetes
+;   parametro=valor ; atribui valores aos parametros
 
 config_version=5
 
