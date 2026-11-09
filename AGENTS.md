@@ -40,7 +40,7 @@ Esta seção é uma proposta inicial, detalhada em [docs/ARQUITETURA.md](docs/AR
 - Prefira que os sistemas colaborem por dependências explícitas, composição e interfaces em C#. Use sinais da Godot quando forem adequados para comunicar eventos sem acoplamento direto.
 - Mantenha separados os dados da tentativa atual e os dados que persistem na espécie. A implementação de salvamento pode ser definida quando os requisitos estiverem claros.
 - Mutações devem poder expressar efeitos e incompatibilidades sem espalhar verificações específicas de cada mutação por combate, protagonista e interface. A forma concreta de definir esses dados ainda será escolhida conforme as primeiras mutações forem implementadas.
-- O código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e aquisição com custo em pontos e verificação de incompatibilidades. Os efeitos das mutações ainda não são aplicados nem há transferência automática para a espécie.
+- O código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e aquisição com custo em pontos, verificação de incompatibilidades e consulta de disponibilidade sem alterar o estado. Os efeitos das mutações ainda não são aplicados nem há transferência automática para a espécie.
 
 ### Pendências de projeto
 

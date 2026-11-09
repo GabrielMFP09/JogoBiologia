@@ -29,7 +29,7 @@ O primeiro recorte implementado fica em `Scripts/Progressao`:
 - `DefinicaoMutacao` é um recurso Godot com identificador e identificadores de mutações incompatíveis.
 - `EstadoTentativa` guarda pontos recebidos e mutações adquiridas na tentativa.
 - `EstadoEspecie` reserva o estado de mutações estabelecidas para a espécie; ainda não há salvamento nem transferência automática.
-- `SistemaProgressaoMutacoes` registra uma mutação quando ela não foi adquirida antes, não contradiz uma mutação da tentativa atual e há pontos suficientes para pagar seu custo. Os pontos são descontados apenas quando a aquisição é concluída.
+- `SistemaProgressaoMutacoes` consulta a disponibilidade de uma mutação sem alterar o estado e a registra quando ela não foi adquirida antes, não contradiz uma mutação da tentativa atual e há pontos suficientes para pagar seu custo. Os pontos são descontados apenas quando a aquisição é concluída.
 
 O custo da mutação é definido em `DefinicaoMutacao` e pago no momento da aquisição. O recorte ainda não define como as mutações são oferecidas, seus efeitos nos atributos, nem como resolver incompatibilidades entre a tentativa e a espécie. Esses comportamentos permanecem pendentes.
 

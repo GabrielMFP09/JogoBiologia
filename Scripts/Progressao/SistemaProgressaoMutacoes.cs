@@ -10,9 +10,17 @@ public enum SituacaoAquisicaoMutacao
     PontosInsuficientes
 }
 
+public enum DisponibilidadeMutacao
+{
+    Disponivel,
+    JaAdquirida,
+    IncompativelComMutacaoExistente,
+    PontosInsuficientes
+}
+
 public sealed class SistemaProgressaoMutacoes
 {
-    public SituacaoAquisicaoMutacao TentarAdquirir(
+    public DisponibilidadeMutacao ConsultarDisponibilidade(
         EstadoTentativa estadoTentativa,
         DefinicaoMutacao mutacao,
         out string identificadorMutacaoConflitante)
@@ -34,7 +42,7 @@ public sealed class SistemaProgressaoMutacoes
 
         if (estadoTentativa.PossuiMutacao(mutacao.Identificador))
         {
-            return SituacaoAquisicaoMutacao.JaAdquirida;
+            return DisponibilidadeMutacao.JaAdquirida;
         }
 
         foreach (DefinicaoMutacao mutacaoAtual in estadoTentativa.Mutacoes)
@@ -45,12 +53,37 @@ public sealed class SistemaProgressaoMutacoes
             }
 
             identificadorMutacaoConflitante = mutacaoAtual.Identificador;
-            return SituacaoAquisicaoMutacao.IncompativelComMutacaoExistente;
+            return DisponibilidadeMutacao.IncompativelComMutacaoExistente;
         }
 
         if (estadoTentativa.PontosMutacao < mutacao.CustoPontosMutacao)
         {
-            return SituacaoAquisicaoMutacao.PontosInsuficientes;
+            return DisponibilidadeMutacao.PontosInsuficientes;
+        }
+
+        return DisponibilidadeMutacao.Disponivel;
+    }
+
+    public SituacaoAquisicaoMutacao TentarAdquirir(
+        EstadoTentativa estadoTentativa,
+        DefinicaoMutacao mutacao,
+        out string identificadorMutacaoConflitante)
+    {
+        DisponibilidadeMutacao disponibilidade = ConsultarDisponibilidade(
+            estadoTentativa,
+            mutacao,
+            out identificadorMutacaoConflitante);
+
+        if (disponibilidade != DisponibilidadeMutacao.Disponivel)
+        {
+            return disponibilidade switch
+            {
+                DisponibilidadeMutacao.JaAdquirida => SituacaoAquisicaoMutacao.JaAdquirida,
+                DisponibilidadeMutacao.IncompativelComMutacaoExistente =>
+                    SituacaoAquisicaoMutacao.IncompativelComMutacaoExistente,
+                DisponibilidadeMutacao.PontosInsuficientes => SituacaoAquisicaoMutacao.PontosInsuficientes,
+                _ => throw new InvalidOperationException("Disponibilidade de mutacao desconhecida.")
+            };
         }
 
         estadoTentativa.GastarPontosMutacao(mutacao.CustoPontosMutacao);
