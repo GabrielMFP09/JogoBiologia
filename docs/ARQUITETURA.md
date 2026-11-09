@@ -33,6 +33,12 @@ O primeiro recorte implementado fica em `Scripts/Progressao`:
 
 O custo da mutação é definido em `DefinicaoMutacao` e pago no momento da aquisição. O recorte ainda não define como as mutações são oferecidas, seus efeitos nos atributos, nem como resolver incompatibilidades entre a tentativa e a espécie. Esses comportamentos permanecem pendentes.
 
+## Interface inicial
+
+`Cenas/Interface/HudTentativa.tscn` compõe o primeiro recorte de interface, com vida, pontos de mutação, uma mensagem de interação e um painel para escolhas de mutação. O script `Scripts/Interface/HudTentativa.gd` só apresenta os dados que recebe e emite `mutacao_selecionada` quando uma opção disponível é escolhida. A cena que hospedar o HUD deve conectá-lo aos estados da tentativa e à progressão; essas regras não pertencem ao HUD.
+
+Para atualizar a apresentação, a cena hospedeira pode chamar `mostrar_vida(vida_atual, vida_maxima)`, `mostrar_pontos_mutacao(pontos)` e `mostrar_interacao(texto)`. A lista passada para `mostrar_mutacoes` usa dicionários com `identificador`, `nome`, `descricao`, `custo_pontos` e `disponibilidade`. Os valores esperados para `disponibilidade` são `disponivel`, `ja_adquirida`, `incompativel` e `pontos_insuficientes`; `mutacao_conflitante` é opcional e só complementa a mensagem de incompatibilidade. Esta conversão mantém o HUD independente das classes de progressão.
+
 ## Percurso geral previsto
 
 1. Uma tentativa começa e a protagonista explora e combate insetos.

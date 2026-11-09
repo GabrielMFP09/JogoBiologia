@@ -1,0 +1,129 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Interface/HudTentativa.gd" id="1_hud"]
+
+[node name="HudTentativa" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="PainelEstado" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 270.0
+offset_bottom = 140.0
+mouse_filter = 2
+
+[node name="MargemEstado" type="MarginContainer" parent="PainelEstado"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="ConteudoEstado" type="VBoxContainer" parent="PainelEstado/MargemEstado"]
+layout_mode = 2
+
+[node name="TituloVida" type="Label" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "VIDA"
+
+[node name="BarraVida" type="ProgressBar" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+show_percentage = false
+
+[node name="TextoVida" type="Label" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100 / 100"
+
+[node name="TextoPontosMutacao" type="Label" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Pontos de mutação: 0"
+
+[node name="PainelInteracao" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -84.0
+offset_right = 180.0
+offset_bottom = -28.0
+mouse_filter = 2
+
+[node name="MargemInteracao" type="MarginContainer" parent="PainelInteracao"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="TextoInteracao" type="Label" parent="PainelInteracao/MargemInteracao"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+text = ""
+
+[node name="PainelMutacoes" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -220.0
+offset_right = 250.0
+offset_bottom = 220.0
+
+[node name="MargemMutacoes" type="MarginContainer" parent="PainelMutacoes"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="ConteudoMutacoes" type="VBoxContainer" parent="PainelMutacoes/MargemMutacoes"]
+layout_mode = 2
+
+[node name="TituloMutacoes" type="Label" parent="PainelMutacoes/MargemMutacoes/ConteudoMutacoes"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ESCOLHA UMA MUTAÇÃO"
+
+[node name="TextoAjuda" type="Label" parent="PainelMutacoes/MargemMutacoes/ConteudoMutacoes"]
+layout_mode = 2
+text = "Selecione uma adaptação para a tentativa."
+
+[node name="RolagemOpcoes" type="ScrollContainer" parent="PainelMutacoes/MargemMutacoes/ConteudoMutacoes"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OpcoesMutacao" type="VBoxContainer" parent="PainelMutacoes/MargemMutacoes/ConteudoMutacoes/RolagemOpcoes"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BotaoFechar" type="Button" parent="PainelMutacoes/MargemMutacoes/ConteudoMutacoes"]
+layout_mode = 2
+text = "Fechar"
+
+[connection signal="pressed" from="PainelMutacoes/MargemMutacoes/ConteudoMutacoes/BotaoFechar" to="." method="fechar_mutacoes"]
