@@ -10,6 +10,9 @@ public partial class DefinicaoMutacao : Resource
     [Export]
     public string Identificador { get; set; } = string.Empty;
 
+    [Export(PropertyHint.Range, "0,100,1")]
+    public int CustoPontosMutacao { get; set; }
+
     [Export]
     public Array<string> IdentificadoresMutacoesIncompativeis { get; set; } = new();
 }

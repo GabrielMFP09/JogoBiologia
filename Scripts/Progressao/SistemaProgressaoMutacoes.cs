@@ -6,7 +6,8 @@ public enum SituacaoAquisicaoMutacao
 {
     Adquirida,
     JaAdquirida,
-    IncompativelComMutacaoExistente
+    IncompativelComMutacaoExistente,
+    PontosInsuficientes
 }
 
 public sealed class SistemaProgressaoMutacoes
@@ -22,6 +23,11 @@ public sealed class SistemaProgressaoMutacoes
         if (string.IsNullOrWhiteSpace(mutacao.Identificador))
         {
             throw new ArgumentException("Uma mutacao precisa ter um identificador.", nameof(mutacao));
+        }
+
+        if (mutacao.CustoPontosMutacao < 0)
+        {
+            throw new ArgumentException("O custo de uma mutacao nao pode ser negativo.", nameof(mutacao));
         }
 
         identificadorMutacaoConflitante = string.Empty;
@@ -42,6 +48,12 @@ public sealed class SistemaProgressaoMutacoes
             return SituacaoAquisicaoMutacao.IncompativelComMutacaoExistente;
         }
 
+        if (estadoTentativa.PontosMutacao < mutacao.CustoPontosMutacao)
+        {
+            return SituacaoAquisicaoMutacao.PontosInsuficientes;
+        }
+
+        estadoTentativa.GastarPontosMutacao(mutacao.CustoPontosMutacao);
         estadoTentativa.AdicionarMutacao(mutacao);
         return SituacaoAquisicaoMutacao.Adquirida;
     }

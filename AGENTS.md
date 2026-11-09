@@ -40,11 +40,11 @@ Esta seção é uma proposta inicial, detalhada em [docs/ARQUITETURA.md](docs/AR
 - Prefira que os sistemas colaborem por dependências explícitas, composição e interfaces em C#. Use sinais da Godot quando forem adequados para comunicar eventos sem acoplamento direto.
 - Mantenha separados os dados da tentativa atual e os dados que persistem na espécie. A implementação de salvamento pode ser definida quando os requisitos estiverem claros.
 - Mutações devem poder expressar efeitos e incompatibilidades sem espalhar verificações específicas de cada mutação por combate, protagonista e interface. A forma concreta de definir esses dados ainda será escolhida conforme as primeiras mutações forem implementadas.
-- O primeiro código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e validação de aquisição. Ele ainda não aplica efeitos, gasta pontos nem transfere mutações para a espécie.
+- O código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e aquisição com custo em pontos e verificação de incompatibilidades. Os efeitos das mutações ainda não são aplicados nem há transferência automática para a espécie.
 
 ### Pendências de projeto
 
-- **TODO — progressão:** definir quando os pontos de mutação podem ser gastos, como as mutações são oferecidas e como resolver conflitos entre mutações da tentativa e da espécie ao morrer.
+- **TODO — progressão:** definir como as mutações são oferecidas e como resolver conflitos entre mutações da tentativa e da espécie ao morrer. A aquisição de uma mutação já gasta o custo definido no recurso.
 - **TODO — incompatibilidades:** definir como apresentar escolhas quando duas mutações não puderem coexistir e se alguma regra de substituição será permitida.
 - **TODO — combate:** definir unidades e regras de alcance, tipos de ataque e como resistências afetam o dano.
 - **TODO — fotossíntese:** definir como são identificados os pontos de luz, como a interação é iniciada e quais limites ou custos existem para a cura.

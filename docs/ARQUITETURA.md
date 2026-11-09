@@ -29,9 +29,9 @@ O primeiro recorte implementado fica em `Scripts/Progressao`:
 - `DefinicaoMutacao` é um recurso Godot com identificador e identificadores de mutações incompatíveis.
 - `EstadoTentativa` guarda pontos recebidos e mutações adquiridas na tentativa.
 - `EstadoEspecie` reserva o estado de mutações estabelecidas para a espécie; ainda não há salvamento nem transferência automática.
-- `SistemaProgressaoMutacoes` registra uma mutação quando ela não foi adquirida antes e não contradiz uma mutação da tentativa atual.
+- `SistemaProgressaoMutacoes` registra uma mutação quando ela não foi adquirida antes, não contradiz uma mutação da tentativa atual e há pontos suficientes para pagar seu custo. Os pontos são descontados apenas quando a aquisição é concluída.
 
-O recorte não define custo ou seleção de mutações, efeitos nos atributos, nem como resolver incompatibilidades entre a tentativa e a espécie. Esses comportamentos permanecem pendentes.
+O custo da mutação é definido em `DefinicaoMutacao` e pago no momento da aquisição. O recorte ainda não define como as mutações são oferecidas, seus efeitos nos atributos, nem como resolver incompatibilidades entre a tentativa e a espécie. Esses comportamentos permanecem pendentes.
 
 ## Percurso geral previsto
 
@@ -45,7 +45,7 @@ Este percurso apenas conecta os elementos já previstos para o jogo. Ele não de
 
 ## Decisões pendentes
 
-- **TODO — progressão:** definir quando os pontos de mutação podem ser gastos, como as opções são apresentadas e como resolver conflitos entre mutações da tentativa e da espécie ao morrer.
+- **TODO — progressão:** definir como as opções de mutação são apresentadas e como resolver conflitos entre mutações da tentativa e da espécie ao morrer.
 - **TODO — incompatibilidades:** definir como a escolha entre mutações incompatíveis funciona e se é possível substituir uma mutação já adquirida.
 - **TODO — combate:** definir unidades e regras de alcance, tipos de ataque e como resistências afetam o dano.
 - **TODO — fotossíntese:** definir como pontos de luz são identificados, como a interação começa e quais limites ou custos se aplicam à cura.

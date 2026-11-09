@@ -22,6 +22,21 @@ public sealed class EstadoTentativa
         PontosMutacao = checked(PontosMutacao + quantidade);
     }
 
+    internal void GastarPontosMutacao(int quantidade)
+    {
+        if (quantidade < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(quantidade));
+        }
+
+        if (quantidade > PontosMutacao)
+        {
+            throw new InvalidOperationException("A tentativa nao possui pontos de mutacao suficientes.");
+        }
+
+        PontosMutacao -= quantidade;
+    }
+
     internal bool PossuiMutacao(string identificadorMutacao)
     {
         return _mutacoes.ContainsKey(identificadorMutacao);
