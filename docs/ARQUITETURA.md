@@ -39,6 +39,12 @@ O custo da mutação é definido em `DefinicaoMutacao` e pago no momento da aqui
 
 Para atualizar a apresentação, a cena hospedeira pode chamar `mostrar_vida(vida_atual, vida_maxima)`, `mostrar_pontos_mutacao(pontos)` e `mostrar_interacao(texto)`. A lista passada para `mostrar_mutacoes` usa dicionários com `identificador`, `nome`, `descricao`, `custo_pontos` e `disponibilidade`. Os valores esperados para `disponibilidade` são `disponivel`, `ja_adquirida`, `incompativel` e `pontos_insuficientes`; `mutacao_conflitante` é opcional e só complementa a mensagem de incompatibilidade. Esta conversão mantém o HUD independente das classes de progressão.
 
+## Primeira cena jogável
+
+`Cenas/Mundo/Partida.tscn` é a cena principal configurada no projeto. Ela instancia a protagonista, plataformas provisórias e o HUD. `ControladorProtagonista.gd` trata apenas deslocamento horizontal e pulo usando as ações padrão `ui_left`, `ui_right` e `ui_accept` (setas e espaço na configuração padrão do Godot). A protagonista usa `CharacterBody2D` e uma forma de colisão separada do nó `VisualTemporario`; os polígonos desse nó são substitutos que podem ser trocados por `Sprite2D` ou `AnimatedSprite2D` posteriormente.
+
+O percurso ainda não inclui inimigos, combate, vida funcional, pontos recebidos ou interação com luz. A barra e os pontos do HUD são apenas valores iniciais até esses sistemas serem conectados.
+
 ## Percurso geral previsto
 
 1. Uma tentativa começa e a protagonista explora e combate insetos.

@@ -42,6 +42,7 @@ Esta seção é uma proposta inicial, detalhada em [docs/ARQUITETURA.md](docs/AR
 - Mutações devem poder expressar efeitos e incompatibilidades sem espalhar verificações específicas de cada mutação por combate, protagonista e interface. A forma concreta de definir esses dados ainda será escolhida conforme as primeiras mutações forem implementadas.
 - O código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e aquisição com custo em pontos, verificação de incompatibilidades e consulta de disponibilidade sem alterar o estado. Os efeitos das mutações ainda não são aplicados nem há transferência automática para a espécie.
 - A primeira cena de interface fica em `Cenas/Interface/HudTentativa.tscn`, com script em `Scripts/Interface/HudTentativa.gd`. Ela apresenta vida, pontos, mensagens de interação e opções de mutação; recebe os dados por métodos e emite um sinal ao selecionar uma mutação, sem aplicar regras de progressão.
+- A cena `Cenas/Mundo/Partida.tscn` é o primeiro percurso executável: usa formas provisórias para chão, plataformas e protagonista, com movimento lateral, pulo, câmera e HUD. O desenho do personagem fica em `VisualTemporario` para ser substituído por sprites sem alterar o controlador.
 
 ### Pendências de projeto
 

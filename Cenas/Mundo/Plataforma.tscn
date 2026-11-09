@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[sub_resource type="RectangleShape2D" id="FormaPlataforma"]
+size = Vector2(240, 32)
+
+[node name="Plataforma" type="StaticBody2D"]
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("FormaPlataforma")
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-120, -16, 120, -16, 120, 16, -120, 16)
+color = Color(0.35, 0.25, 0.16, 1)
