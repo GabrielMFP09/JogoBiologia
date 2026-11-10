@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Interface/HudTentativa.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://plantinha.png" id="2_icone_mutacao"]
 
 [node name="HudTentativa" type="Control"]
 layout_mode = 3
@@ -46,7 +47,18 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "100 / 100"
 
-[node name="TextoPontosMutacao" type="Label" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+[node name="LinhaPontosMutacao" type="HBoxContainer" parent="PainelEstado/MargemEstado/ConteudoEstado"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="IconePontosMutacao" type="TextureRect" parent="PainelEstado/MargemEstado/ConteudoEstado/LinhaPontosMutacao"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("2_icone_mutacao")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextoPontosMutacao" type="Label" parent="PainelEstado/MargemEstado/ConteudoEstado/LinhaPontosMutacao"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
