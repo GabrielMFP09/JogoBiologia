@@ -5,7 +5,9 @@ signal vida_alterada(vida_atual: int, vida_maxima: int)
 signal morreu
 
 @export var velocidade: float = 280.0
-@export var forca_pulo: float = 660.0
+@export var forca_pulo: float = 460.0
+@export var tempo_pulo_segurado: float = 0.22
+@export_range(0.0, 1.0) var multiplicador_gravidade_pulo_segurado: float = 0.45
 @export var vida_maxima: int = 100
 @export var dano_ataque: int = 10
 @export var alcance_ataque: float = 58.0
@@ -19,6 +21,7 @@ var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gra
 var vida_atual: int
 var _tempo_ate_atacar: float = 0.0
 var _tempo_ricochete: float = 0.0
+var _tempo_pulo_segurado_restante: float = 0.0
 var _direcao_visual: float = 1.0
 var _morto: bool = false
 var _velocidade_base: float
@@ -54,9 +57,16 @@ func _physics_process(delta: float) -> void:
 			visual.flip_h = _direcao_visual < 0.0
 
 	if not is_on_floor():
-		velocity.y += gravidade * delta
+		var segurando_pulo := Input.is_action_pressed("ui_accept") and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0
+		var fator_gravidade := multiplicador_gravidade_pulo_segurado if segurando_pulo else 1.0
+		velocity.y += gravidade * fator_gravidade * delta
+		if segurando_pulo:
+			_tempo_pulo_segurado_restante = maxf(_tempo_pulo_segurado_restante - delta, 0.0)
+		else:
+			_tempo_pulo_segurado_restante = 0.0
 	elif Input.is_action_just_pressed("ui_accept"):
 		velocity.y = -forca_pulo
+		_tempo_pulo_segurado_restante = tempo_pulo_segurado
 
 	move_and_slide()
 	if Input.is_action_just_pressed("atacar"):
