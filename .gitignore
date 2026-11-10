@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Arquivos locais do Visual Studio e saidas de compilacao
+.vs/
+bin/
+obj/
