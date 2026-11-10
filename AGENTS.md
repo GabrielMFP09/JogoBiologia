@@ -12,9 +12,8 @@
 
 ## Diretrizes de implementação
 
-- Escreva o código, os identificadores, as mensagens e os comentários em português. Use nomes sem acentos nos identificadores para manter a compatibilidade com as ferramentas; preserve os nomes definidos pelas APIs da Godot, do C# e de outras dependências.
-- Use GDScript para sistemas pequenos. Use C# para sistemas de porte médio ou grande.
-- Em C#, prefira composição e interfaces. Evite herança, exceto quando necessária para integrar com a Godot.
+- Escreva todo o código executável do projeto em GDScript; não use C# nem outras linguagens de programação.
+- Escreva os identificadores, as mensagens e os comentários em português. Use nomes sem acentos nos identificadores para manter a compatibilidade com as ferramentas; preserve os nomes definidos pelas APIs da Godot e de outras dependências.
 - Prefira código claro que explique a própria intenção. Escreva comentários apenas em documentação de classes ou métodos quando forem realmente úteis e em trechos cujo funcionamento não esteja claro pelo código.
 - Implemente cada funcionalidade com a menor quantidade de mudanças necessária.
 - Mantenha as alterações localizadas; evite modificar partes distantes do projeto para atender a um pedido, salvo quando necessário.
@@ -37,7 +36,7 @@ Esta seção é uma proposta inicial, detalhada em [docs/ARQUITETURA.md](docs/AR
 ### Organização e colaboração entre sistemas
 
 - Use cenas e nós da Godot para compor elementos do jogo. Scripts devem cuidar de responsabilidades claras, sem um controlador central que acumule todas as regras.
-- Prefira que os sistemas colaborem por dependências explícitas, composição e interfaces em C#. Use sinais da Godot quando forem adequados para comunicar eventos sem acoplamento direto.
+- Prefira que os sistemas colaborem por dependências explícitas e composição em GDScript. Use sinais da Godot quando forem adequados para comunicar eventos sem acoplamento direto.
 - Mantenha separados os dados da tentativa atual e os dados que persistem na espécie. A implementação de salvamento pode ser definida quando os requisitos estiverem claros.
 - Mutações devem poder expressar efeitos e incompatibilidades sem espalhar verificações específicas de cada mutação por combate, protagonista e interface. A forma concreta de definir esses dados ainda será escolhida conforme as primeiras mutações forem implementadas.
 - O código de progressão está em `Scripts/Progressao`: estados de tentativa e espécie, recurso de definição de mutação e aquisição com custo em pontos, verificação de incompatibilidades e consulta de disponibilidade sem alterar o estado. Os efeitos das mutações ainda não são aplicados nem há transferência automática para a espécie.
