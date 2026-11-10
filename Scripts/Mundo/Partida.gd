@@ -15,7 +15,7 @@ func _ready() -> void:
 	hud.mutacao_selecionada.connect(_ao_selecionar_mutacao)
 	hud.mostrar_vida(protagonista.vida_atual, protagonista.vida_maxima)
 	hud.mostrar_pontos_mutacao(estado_tentativa.pontos_mutacao)
-	hud.mostrar_interacao("←/→: mover    ↑: pular    J: atacar    M: mutações")
+	hud.mostrar_interacao("←/→ ou A/D: mover    ↑ ou W: pular    J: atacar    M: mutações")
 	for no_inseto in get_tree().get_nodes_in_group("insetos"):
 		var inseto := no_inseto as Inseto
 		if is_instance_valid(inseto):
@@ -42,7 +42,7 @@ func _ao_derrotar_inseto(recompensa_pontos: int) -> void:
 
 
 func _ao_morrer() -> void:
-	hud.mostrar_interacao("A planta morreu. Pressione ↑ para tentar novamente.")
+	hud.mostrar_interacao("A planta morreu. Pressione ↑ ou W para tentar novamente.")
 
 
 func _criar_mutacoes() -> void:
