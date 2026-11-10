@@ -67,7 +67,7 @@ func _seguir_ou_atacar(alvo: ControladorProtagonista) -> void:
 	if absf(distancia.x) <= alcance_ataque:
 		velocity.x = 0.0
 		if _tempo_ate_atacar == 0.0:
-			alvo.receber_dano(dano_ataque)
+			alvo.receber_impacto(dano_ataque, global_position)
 			_tempo_ate_atacar = intervalo_ataque
 		return
 

@@ -11,10 +11,14 @@ signal morreu
 @export var alcance_ataque: float = 58.0
 @export var intervalo_ataque: float = 0.45
 @export var resistencia_dano: int = 0
+@export var forca_ricochete_horizontal: float = 300.0
+@export var forca_ricochete_vertical: float = 180.0
+@export var duracao_ricochete: float = 0.16
 
 var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var vida_atual: int
 var _tempo_ate_atacar: float = 0.0
+var _tempo_ricochete: float = 0.0
 var _direcao_visual: float = 1.0
 var _morto: bool = false
 var _velocidade_base: float
@@ -40,11 +44,14 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_tempo_ate_atacar = maxf(_tempo_ate_atacar - delta, 0.0)
-	var direcao := Input.get_axis("ui_left", "ui_right")
-	velocity.x = direcao * velocidade
-	if direcao != 0.0:
-		_direcao_visual = signf(direcao)
-		visual.flip_h = _direcao_visual < 0.0
+	if _tempo_ricochete > 0.0:
+		_tempo_ricochete = maxf(_tempo_ricochete - delta, 0.0)
+	else:
+		var direcao := Input.get_axis("ui_left", "ui_right")
+		velocity.x = direcao * velocidade
+		if direcao != 0.0:
+			_direcao_visual = signf(direcao)
+			visual.flip_h = _direcao_visual < 0.0
 
 	if not is_on_floor():
 		velocity.y += gravidade * delta
@@ -67,6 +74,19 @@ func receber_dano(dano: int) -> void:
 		_morto = true
 		velocity = Vector2.ZERO
 		morreu.emit()
+
+
+func receber_impacto(dano: int, origem: Vector2) -> void:
+	receber_dano(dano)
+	if _morto:
+		return
+
+	var direcao_recuo := signf(global_position.x - origem.x)
+	if is_zero_approx(direcao_recuo):
+		direcao_recuo = -_direcao_visual
+	velocity.x = direcao_recuo * forca_ricochete_horizontal
+	velocity.y = -forca_ricochete_vertical
+	_tempo_ricochete = duracao_ricochete
 
 
 func aplicar_mutacoes(mutacoes: Array[DefinicaoMutacao]) -> void:
