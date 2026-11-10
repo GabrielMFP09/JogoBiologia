@@ -1,36 +1,36 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3 uid="uid://deatb63fnpv2y"]
 
 [ext_resource type="PackedScene" path="res://Cenas/Personagem/Protagonista.tscn" id="1_protagonista"]
 [ext_resource type="PackedScene" path="res://Cenas/Mundo/Plataforma.tscn" id="2_plataforma"]
 [ext_resource type="PackedScene" path="res://Cenas/Interface/HudTentativa.tscn" id="3_hud"]
-[ext_resource type="Script" path="res://Scripts/Mundo/Partida.gd" id="4_partida"]
+[ext_resource type="Script" uid="uid://dtsu080ms4pat" path="res://Scripts/Mundo/Partida.gd" id="4_partida"]
 [ext_resource type="PackedScene" path="res://Cenas/Inimigos/Inseto.tscn" id="5_inseto"]
-[ext_resource type="Texture2D" path="res://vespinha.png" id="6_vespinha"]
-[ext_resource type="Texture2D" path="res://louvaDEUS.png" id="7_louva_deus"]
-[ext_resource type="Texture2D" path="res://lesminha.png" id="8_lesminha"]
+[ext_resource type="Texture2D" uid="uid://cnkxg46q2gsw4" path="res://vespinha.png" id="6_vespinha"]
+[ext_resource type="Texture2D" uid="uid://bg5ximme8op0s" path="res://louvaDEUS.png" id="7_louva_deus"]
+[ext_resource type="Texture2D" uid="uid://b25y3q1pprvs8" path="res://lesminha.png" id="8_lesminha"]
 
-[node name="Partida" type="Node2D"]
+[node name="Partida" type="Node2D" unique_id=1429135246]
 script = ExtResource("4_partida")
 
-[node name="Fundo" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-3000, -1500, 3000, -1500, 3000, 1500, -3000, 1500)
-color = Color(0.12, 0.19, 0.22, 1)
+[node name="Fundo" type="Polygon2D" parent="." unique_id=364803612]
 z_index = -10
+color = Color(0.12, 0.19, 0.22, 1)
+polygon = PackedVector2Array(-3000, -1500, 3000, -1500, 3000, 1500, -3000, 1500)
 
-[node name="Chao" parent="." instance=ExtResource("2_plataforma")]
+[node name="Chao" parent="." unique_id=2072452593 instance=ExtResource("2_plataforma")]
 position = Vector2(800, 570)
 scale = Vector2(7.5, 2.5)
 
-[node name="PlataformaBaixa" parent="." instance=ExtResource("2_plataforma")]
+[node name="PlataformaBaixa" parent="." unique_id=1129540400 instance=ExtResource("2_plataforma")]
 position = Vector2(370, 430)
 
-[node name="PlataformaAlta" parent="." instance=ExtResource("2_plataforma")]
+[node name="PlataformaAlta" parent="." unique_id=554994716 instance=ExtResource("2_plataforma")]
 position = Vector2(700, 340)
 
-[node name="Protagonista" parent="." instance=ExtResource("1_protagonista")]
+[node name="Protagonista" parent="." unique_id=636102980 instance=ExtResource("1_protagonista")]
 position = Vector2(120, 490)
 
-[node name="Vespinha" parent="." instance=ExtResource("5_inseto")]
+[node name="Vespinha" parent="." unique_id=491895064 instance=ExtResource("5_inseto")]
 position = Vector2(400, 518)
 textura = ExtResource("6_vespinha")
 vida_maxima = 18
@@ -38,9 +38,8 @@ velocidade = 125.0
 dano_ataque = 7
 alcance_ataque = 60.0
 intervalo_ataque = 1.0
-recompensa_pontos = 1
 
-[node name="LouvaDeus" parent="." instance=ExtResource("5_inseto")]
+[node name="LouvaDeus" parent="." unique_id=612917397 instance=ExtResource("5_inseto")]
 position = Vector2(850, 518)
 textura = ExtResource("7_louva_deus")
 vida_maxima = 38
@@ -51,7 +50,7 @@ intervalo_ataque = 1.3
 resistencia_dano = 1
 recompensa_pontos = 3
 
-[node name="Lesminha" parent="." instance=ExtResource("5_inseto")]
+[node name="Lesminha" parent="." unique_id=547656987 instance=ExtResource("5_inseto")]
 position = Vector2(1320, 518)
 textura = ExtResource("8_lesminha")
 vida_maxima = 55
@@ -62,6 +61,6 @@ intervalo_ataque = 1.5
 resistencia_dano = 2
 recompensa_pontos = 4
 
-[node name="CamadaInterface" type="CanvasLayer" parent="."]
+[node name="CamadaInterface" type="CanvasLayer" parent="." unique_id=561920907]
 
-[node name="HudTentativa" parent="CamadaInterface" instance=ExtResource("3_hud")]
+[node name="HudTentativa" parent="CamadaInterface" unique_id=1258067319 instance=ExtResource("3_hud")]
