@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Inimigos/Inseto.gd" id="1_inseto"]
+
+[sub_resource type="RectangleShape2D" id="FormaColisaoInseto"]
+size = Vector2(22, 20)
+
+[node name="Inseto" type="CharacterBody2D"]
+script = ExtResource("1_inseto")
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("FormaColisaoInseto")
+
+[node name="Visual" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(1.5, 1.5)
+texture_filter = 1

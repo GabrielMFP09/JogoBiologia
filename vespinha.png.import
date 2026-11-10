@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://Scripts/Mundo/vespinha.png"
+source_file="res://vespinha.png"
 dest_files=["res://.godot/imported/vespinha.png-1b0d5ace04b825a1be5cf1f7a7e2430c.ctex"]
 
 [params]
