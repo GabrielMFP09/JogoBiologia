@@ -93,10 +93,13 @@ func _tentar_atacar() -> void:
 		return
 
 	_tempo_ate_atacar = intervalo_ataque
-	for inseto in get_tree().get_nodes_in_group("insetos"):
-		var distancia := inseto.global_position - global_position
+	for no_inseto in get_tree().get_nodes_in_group("insetos"):
+		var inseto := no_inseto as Inseto
+		if not is_instance_valid(inseto):
+			continue
+		var distancia: Vector2 = inseto.global_position - global_position
 		if absf(distancia.x) > alcance_ataque or absf(distancia.y) > 48.0:
 			continue
-		if signf(distancia.x) != _direcao_visual:
+		if not is_zero_approx(distancia.x) and signf(distancia.x) != _direcao_visual:
 			continue
 		inseto.receber_dano(dano_ataque)

@@ -16,8 +16,10 @@ func _ready() -> void:
 	hud.mostrar_vida(protagonista.vida_atual, protagonista.vida_maxima)
 	hud.mostrar_pontos_mutacao(estado_tentativa.pontos_mutacao)
 	hud.mostrar_interacao("Setas: mover    Espaço: pular    J: atacar    M: mutações")
-	for inseto in get_tree().get_nodes_in_group("insetos"):
-		inseto.derrotado.connect(_ao_derrotar_inseto)
+	for no_inseto in get_tree().get_nodes_in_group("insetos"):
+		var inseto := no_inseto as Inseto
+		if is_instance_valid(inseto):
+			inseto.derrotado.connect(_ao_derrotar_inseto)
 
 
 func _unhandled_input(evento: InputEvent) -> void:
