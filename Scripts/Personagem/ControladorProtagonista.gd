@@ -5,7 +5,7 @@ signal vida_alterada(vida_atual: int, vida_maxima: int)
 signal morreu
 
 @export var velocidade: float = 280.0
-@export var forca_pulo: float = 460.0
+@export var forca_pulo: float = 660.0
 @export var vida_maxima: int = 100
 @export var dano_ataque: int = 10
 @export var alcance_ataque: float = 58.0
