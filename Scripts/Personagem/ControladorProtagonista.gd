@@ -132,4 +132,4 @@ func _tentar_atacar() -> void:
 			continue
 		if not is_zero_approx(distancia.x) and signf(distancia.x) != _direcao_visual:
 			continue
-		inseto.receber_dano(dano_ataque)
+		inseto.receber_impacto(dano_ataque, global_position)

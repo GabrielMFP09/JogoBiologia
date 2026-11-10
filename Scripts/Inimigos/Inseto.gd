@@ -12,10 +12,14 @@ signal derrotado(recompensa_pontos: int)
 @export var resistencia_dano: int = 0
 @export var recompensa_pontos: int = 1
 @export var distancia_percepcao: float = 240.0
+@export var forca_recuo_horizontal: float = 220.0
+@export var forca_recuo_vertical: float = 90.0
+@export var duracao_recuo: float = 0.14
 
 var vida_atual: int
 var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var _tempo_ate_atacar: float = 0.0
+var _tempo_recuo: float = 0.0
 var _morto: bool = false
 
 @onready var visual: Sprite2D = $Visual
@@ -32,11 +36,14 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_tempo_ate_atacar = maxf(_tempo_ate_atacar - delta, 0.0)
-	var alvo := get_tree().get_first_node_in_group("protagonista") as ControladorProtagonista
-	if is_instance_valid(alvo):
-		_seguir_ou_atacar(alvo)
+	if _tempo_recuo > 0.0:
+		_tempo_recuo = maxf(_tempo_recuo - delta, 0.0)
 	else:
-		velocity.x = 0.0
+		var alvo := get_tree().get_first_node_in_group("protagonista") as ControladorProtagonista
+		if is_instance_valid(alvo):
+			_seguir_ou_atacar(alvo)
+		else:
+			velocity.x = 0.0
 
 	if not is_on_floor():
 		velocity.y += gravidade * delta
@@ -53,6 +60,19 @@ func receber_dano(dano: int) -> void:
 		_morto = true
 		derrotado.emit(recompensa_pontos)
 		queue_free()
+
+
+func receber_impacto(dano: int, origem: Vector2) -> void:
+	receber_dano(dano)
+	if _morto:
+		return
+
+	var direcao_recuo := signf(global_position.x - origem.x)
+	if is_zero_approx(direcao_recuo):
+		direcao_recuo = -1.0 if visual.flip_h else 1.0
+	velocity.x = direcao_recuo * forca_recuo_horizontal
+	velocity.y = -forca_recuo_vertical
+	_tempo_recuo = duracao_recuo
 
 
 func _seguir_ou_atacar(alvo: ControladorProtagonista) -> void:
