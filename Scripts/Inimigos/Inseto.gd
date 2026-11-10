@@ -62,7 +62,8 @@ func _seguir_ou_atacar(alvo: ControladorProtagonista) -> void:
 		return
 
 	var direcao := signf(distancia.x)
-	visual.flip_h = direcao < 0.0
+	if not is_zero_approx(direcao):
+		visual.flip_h = direcao > 0.0
 	if absf(distancia.x) <= alcance_ataque:
 		velocity.x = 0.0
 		if _tempo_ate_atacar == 0.0:
