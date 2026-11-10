@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnkxg46q2gsw4"
-path="res://.godot/imported/vespinha.png-1b0d5ace04b825a1be5cf1f7a7e2430c.ctex"
+path="res://.godot/imported/vespinha.png-db65bf7378f8595d4da3964ef1fc0f3f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://vespinha.png"
-dest_files=["res://.godot/imported/vespinha.png-1b0d5ace04b825a1be5cf1f7a7e2430c.ctex"]
+dest_files=["res://.godot/imported/vespinha.png-db65bf7378f8595d4da3964ef1fc0f3f.ctex"]
 
 [params]
 
