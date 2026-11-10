@@ -1,4 +1,5 @@
 extends Control
+class_name HudTentativa
 
 signal mutacao_selecionada(identificador: String)
 signal painel_mutacoes_fechado
@@ -68,6 +69,10 @@ func fechar_mutacoes() -> void:
 	painel_mutacoes_fechado.emit()
 
 
+func mutacoes_estao_visiveis() -> bool:
+	return painel_mutacoes.visible
+
+
 func _adicionar_opcao_mutacao(dados: Dictionary) -> void:
 	var identificador := str(dados.get("identificador", ""))
 	var nome := str(dados.get("nome", identificador))
@@ -85,6 +90,8 @@ func _adicionar_opcao_mutacao(dados: Dictionary) -> void:
 	botao.disabled = disponibilidade != "disponivel" or identificador.is_empty()
 	botao.pressed.connect(_selecionar_mutacao.bind(identificador))
 	opcoes_mutacao.add_child(botao)
+	if opcoes_mutacao.get_child_count() == 1:
+		botao.grab_focus()
 
 
 func _texto_indisponibilidade(disponibilidade: String, dados: Dictionary) -> String:

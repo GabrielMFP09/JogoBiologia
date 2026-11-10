@@ -31,25 +31,27 @@ O primeiro recorte implementado fica em `Scripts/Progressao`, em GDScript:
 - `EstadoEspecie.gd` reserva o estado de mutações estabelecidas para a espécie; ainda não há salvamento nem transferência automática.
 - `SistemaProgressaoMutacoes.gd` consulta a disponibilidade de uma mutação sem alterar o estado e a registra quando ela não foi adquirida antes, não contradiz uma mutação da tentativa atual e há pontos suficientes para pagar seu custo. Os pontos são descontados apenas quando a aquisição é concluída. As consultas retornam um dicionário com `situacao` e `identificador_mutacao_conflitante`.
 
-O custo da mutação é definido em `DefinicaoMutacao` e pago no momento da aquisição. O recorte ainda não define como as mutações são oferecidas, seus efeitos nos atributos, nem como resolver incompatibilidades entre a tentativa e a espécie. Esses comportamentos permanecem pendentes.
+O custo é definido em `DefinicaoMutacao` e pago na aquisição. A tentativa já oferece duas mutações e aplica seus efeitos aos atributos da protagonista; a passagem dos efeitos para a espécie continua pendente.
 
-## Interface inicial
+## Interface e mutações na tentativa
 
-`Cenas/Interface/HudTentativa.tscn` compõe o primeiro recorte de interface, com vida, pontos de mutação, uma mensagem de interação e um painel para escolhas de mutação. O script `Scripts/Interface/HudTentativa.gd` só apresenta os dados que recebe e emite `mutacao_selecionada` quando uma opção disponível é escolhida. A cena que hospedar o HUD deve conectá-lo aos estados da tentativa e à progressão; essas regras não pertencem ao HUD.
+`Cenas/Interface/HudTentativa.tscn` apresenta vida, pontos de mutação, mensagens de interação e opções de mutação. `Partida.gd` conecta o HUD aos estados da tentativa e à progressão; o HUD apenas encaminha a escolha.
 
 Para atualizar a apresentação, a cena hospedeira pode chamar `mostrar_vida(vida_atual, vida_maxima)`, `mostrar_pontos_mutacao(pontos)` e `mostrar_interacao(texto)`. A lista passada para `mostrar_mutacoes` usa dicionários com `identificador`, `nome`, `descricao`, `custo_pontos` e `disponibilidade`. Os valores esperados para `disponibilidade` são `disponivel`, `ja_adquirida`, `incompativel` e `pontos_insuficientes`; `mutacao_conflitante` é opcional e só complementa a mensagem de incompatibilidade. Esta conversão mantém o HUD independente das classes de progressão.
 
-## Primeira cena jogável
+## Cena jogável e combate inicial
 
-`Cenas/Mundo/Partida.tscn` é a cena principal configurada no projeto. Ela instancia a protagonista, plataformas provisórias e o HUD. `ControladorProtagonista.gd` trata apenas deslocamento horizontal e pulo usando as ações padrão `ui_left`, `ui_right` e `ui_accept` (setas e espaço na configuração padrão do Godot). A protagonista usa `CharacterBody2D` e uma forma de colisão separada do nó `VisualTemporario`; os polígonos desse nó são substitutos que podem ser trocados por `Sprite2D` ou `AnimatedSprite2D` posteriormente.
+`Cenas/Mundo/Partida.tscn` instancia a protagonista, plataformas, três insetos e o HUD. A protagonista usa `plantinha.png`; os inimigos usam `vespinha.png`, `louvaDEUS.png` e `lesminha.png`. Os sprites são ampliados com filtragem nearest para preservar os pixels.
 
-O percurso ainda não inclui inimigos, combate, vida funcional, pontos recebidos ou interação com luz. A barra e os pontos do HUD são apenas valores iniciais até esses sistemas serem conectados.
+As setas movem a planta, Espaço pula, J ataca e M abre as mutações. Insetos perseguem a protagonista dentro de uma distância de percepção, atacam dentro do alcance configurado e concedem pontos ao serem derrotados. O dano recebido é reduzido pela resistência, com dano mínimo de um ponto. Insetos têm vida, velocidade, alcance, resistência e recompensas diferentes.
+
+As duas mutações iniciais são criadas por `Partida.gd` como recursos: Espinhos aumenta o dano e reduz a vida máxima; Casca grossa aumenta vida e resistência e reduz velocidade. São incompatíveis entre si. Os efeitos ficam em `DefinicaoMutacao` e a protagonista agrega os valores das mutações adquiridas. Os pontos e mutações duram apenas durante a tentativa; persistência e transferência para a espécie continuam pendentes.
 
 ## Percurso geral previsto
 
 1. Uma tentativa começa e a protagonista explora e combate insetos.
-2. Derrotar insetos pode conceder pontos de mutação; a regra e o momento de uso desses pontos ainda precisam ser definidos.
-3. Mutações alteram características da planta, incluindo benefícios, custos e incompatibilidades.
+2. Derrotar cada inseto concede a recompensa configurada na cena, e esses pontos podem ser gastos em mutações durante a tentativa.
+3. As mutações iniciais alteram dano, vida, velocidade e resistência, com incompatibilidade definida nos próprios recursos.
 4. Pontos de luz permitem recuperar vida por fotossíntese, conforme regras ainda pendentes.
 5. Ao morrer, mudanças da tentativa passam para a espécie, conforme uma regra de transição a definir.
 
@@ -57,11 +59,11 @@ Este percurso apenas conecta os elementos já previstos para o jogo. Ele não de
 
 ## Decisões pendentes
 
-- **TODO — progressão:** definir como as opções de mutação são apresentadas e como resolver conflitos entre mutações da tentativa e da espécie ao morrer.
-- **TODO — incompatibilidades:** definir como a escolha entre mutações incompatíveis funciona e se é possível substituir uma mutação já adquirida.
-- **TODO — combate:** definir unidades e regras de alcance, tipos de ataque e como resistências afetam o dano.
+- **TODO — progressão:** definir como as mutações da tentativa passam a fazer parte da espécie ao morrer.
+- **TODO — incompatibilidades:** a tentativa não permite substituir uma mutação adquirida; ainda falta definir como conflitos com mutações persistentes da espécie serão tratados.
+- **TODO — combate:** expandir os ataques além do golpe corpo a corpo inicial e revisar os valores de alcance, dano e resistência durante o balanceamento.
 - **TODO — fotossíntese:** definir como pontos de luz são identificados, como a interação começa e quais limites ou custos se aplicam à cura.
 - **TODO — persistência:** decidir se os dados da espécie são salvos entre sessões e quais dados isso inclui.
-- **TODO — autoria das mutações:** escolher entre recursos da Godot, código ou uma combinação quando os requisitos para criar e editar mutações estiverem claros.
+- **TODO — autoria das mutações:** as primeiras definições são criadas em código; avaliar recursos `.tres` quando a autoria de mais mutações exigir edição no inspetor.
 
 Atualize este rascunho quando uma decisão for tomada. As pendências não são regras já definidas para o jogo.

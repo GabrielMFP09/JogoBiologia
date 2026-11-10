@@ -26,6 +26,10 @@ atacar={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"physical_keycode":74,"unicode":106)]
 }
+mostrar_mutacoes={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":77,"unicode":109)]
+}
 
 [physics]
 

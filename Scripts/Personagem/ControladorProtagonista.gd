@@ -17,12 +17,20 @@ var vida_atual: int
 var _tempo_ate_atacar: float = 0.0
 var _direcao_visual: float = 1.0
 var _morto: bool = false
+var _velocidade_base: float
+var _vida_maxima_base: int
+var _dano_ataque_base: int
+var _resistencia_dano_base: int
 
 @onready var visual: Sprite2D = $Visual
 
 
 func _ready() -> void:
 	add_to_group("protagonista")
+	_velocidade_base = velocidade
+	_vida_maxima_base = vida_maxima
+	_dano_ataque_base = dano_ataque
+	_resistencia_dano_base = resistencia_dano
 	vida_atual = vida_maxima
 	vida_alterada.emit(vida_atual, vida_maxima)
 
@@ -59,6 +67,25 @@ func receber_dano(dano: int) -> void:
 		_morto = true
 		velocity = Vector2.ZERO
 		morreu.emit()
+
+
+func aplicar_mutacoes(mutacoes: Array[DefinicaoMutacao]) -> void:
+	var bonus_dano := 0
+	var bonus_vida := 0
+	var bonus_velocidade := 0.0
+	var bonus_resistencia := 0
+	for mutacao in mutacoes:
+		bonus_dano += mutacao.bonus_dano_ataque
+		bonus_vida += mutacao.bonus_vida_maxima
+		bonus_velocidade += mutacao.bonus_velocidade
+		bonus_resistencia += mutacao.bonus_resistencia_dano
+
+	vida_maxima = maxi(_vida_maxima_base + bonus_vida, 1)
+	vida_atual = mini(vida_atual, vida_maxima)
+	dano_ataque = maxi(_dano_ataque_base + bonus_dano, 1)
+	velocidade = maxf(_velocidade_base + bonus_velocidade, 0.0)
+	resistencia_dano = maxi(_resistencia_dano_base + bonus_resistencia, 0)
+	vida_alterada.emit(vida_atual, vida_maxima)
 
 
 func _tentar_atacar() -> void:
