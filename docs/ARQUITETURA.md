@@ -43,7 +43,7 @@ Para atualizar a apresentação, a cena hospedeira pode chamar `mostrar_vida(vid
 
 `Cenas/Mundo/Partida.tscn` instancia a protagonista, plataformas, três insetos e o HUD. A protagonista usa `plantinha.png`; os inimigos usam `vespinha.png`, `louvaDEUS.png` e `lesminha.png`. Os sprites são ampliados com filtragem nearest para preservar os pixels.
 
-As setas movem a planta, Espaço pula, J ataca e M abre as mutações. Insetos perseguem a protagonista dentro de uma distância de percepção, atacam dentro do alcance configurado e concedem pontos ao serem derrotados. O dano recebido é reduzido pela resistência, com dano mínimo de um ponto. Insetos têm vida, velocidade, alcance, resistência e recompensas diferentes.
+As setas esquerda e direita movem a planta, a seta para cima pula, J ataca e M abre as mutações. Depois de morrer, a seta para cima inicia uma nova tentativa. Insetos perseguem a protagonista dentro de uma distância de percepção, atacam dentro do alcance configurado e concedem pontos ao serem derrotados. O dano recebido é reduzido pela resistência, com dano mínimo de um ponto. Insetos têm vida, velocidade, alcance, resistência e recompensas diferentes.
 
 As duas mutações iniciais são criadas por `Partida.gd` como recursos: Espinhos aumenta o dano e reduz a vida máxima; Casca grossa aumenta vida e resistência e reduz velocidade. São incompatíveis entre si. Os efeitos ficam em `DefinicaoMutacao` e a protagonista agrega os valores das mutações adquiridas. Os pontos e mutações duram apenas durante a tentativa; persistência e transferência para a espécie continuam pendentes.
 

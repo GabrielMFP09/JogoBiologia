@@ -50,21 +50,21 @@ func _physics_process(delta: float) -> void:
 	if _tempo_ricochete > 0.0:
 		_tempo_ricochete = maxf(_tempo_ricochete - delta, 0.0)
 	else:
-		var direcao := Input.get_axis("ui_left", "ui_right")
+		var direcao := Input.get_axis("mover_esquerda", "mover_direita")
 		velocity.x = direcao * velocidade
 		if direcao != 0.0:
 			_direcao_visual = signf(direcao)
 			visual.flip_h = _direcao_visual < 0.0
 
 	if not is_on_floor():
-		var segurando_pulo := Input.is_action_pressed("ui_accept") and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0
+		var segurando_pulo := Input.is_action_pressed("pular") and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0
 		var fator_gravidade := multiplicador_gravidade_pulo_segurado if segurando_pulo else 1.0
 		velocity.y += gravidade * fator_gravidade * delta
 		if segurando_pulo:
 			_tempo_pulo_segurado_restante = maxf(_tempo_pulo_segurado_restante - delta, 0.0)
 		else:
 			_tempo_pulo_segurado_restante = 0.0
-	elif Input.is_action_just_pressed("ui_accept"):
+	elif Input.is_action_just_pressed("pular"):
 		velocity.y = -forca_pulo
 		_tempo_pulo_segurado_restante = tempo_pulo_segurado
 
