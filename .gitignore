@@ -3,3 +3,4 @@
 /android/
 *.remap
 *.gdc
+/project.binary
