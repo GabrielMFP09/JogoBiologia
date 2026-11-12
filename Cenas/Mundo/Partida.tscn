@@ -8,14 +8,22 @@
 [ext_resource type="Texture2D" uid="uid://cnkxg46q2gsw4" path="res://vespinha.png" id="6_vespinha"]
 [ext_resource type="Texture2D" uid="uid://bg5ximme8op0s" path="res://louvaDEUS.png" id="7_louva_deus"]
 [ext_resource type="Texture2D" uid="uid://b25y3q1pprvs8" path="res://lesminha.png" id="8_lesminha"]
+[ext_resource type="Texture2D" path="res://fundo_floresta.png" id="9_fundo"]
 
 [node name="Partida" type="Node2D" unique_id=1429135246]
 script = ExtResource("4_partida")
 
-[node name="Fundo" type="Polygon2D" parent="." unique_id=364803612]
-z_index = -10
+[node name="FundoBase" type="Polygon2D" parent="." unique_id=364803612]
+z_index = -11
 color = Color(0.12, 0.19, 0.22, 1)
 polygon = PackedVector2Array(-3000, -1500, 3000, -1500, 3000, 1500, -3000, 1500)
+
+[node name="Fundo" type="Sprite2D" parent="."]
+position = Vector2(800, 500)
+scale = Vector2(1.25, 1.25)
+texture_filter = 1
+z_index = -10
+texture = ExtResource("9_fundo")
 
 [node name="Chao" parent="." unique_id=2072452593 instance=ExtResource("2_plataforma")]
 position = Vector2(800, 570)

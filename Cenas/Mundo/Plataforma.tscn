@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://textura_plataforma.png" id="1_textura"]
 
 [sub_resource type="RectangleShape2D" id="FormaPlataforma"]
 size = Vector2(240, 32)
@@ -8,6 +10,9 @@ size = Vector2(240, 32)
 [node name="Colisao" type="CollisionShape2D" parent="."]
 shape = SubResource("FormaPlataforma")
 
-[node name="Visual" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-120, -16, 120, -16, 120, 16, -120, 16)
-color = Color(0.35, 0.25, 0.16, 1)
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.110497, 0.190476)
+texture_filter = 1
+texture = ExtResource("1_textura")
+region_enabled = true
+region_rect = Rect2(0, 256, 2172, 168)
