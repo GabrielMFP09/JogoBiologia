@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Interface/HudTentativa.gd" id="1_hud"]
-[ext_resource type="Texture2D" path="res://plantinha.png" id="2_icone_mutacao"]
+[ext_resource type="Texture2D" path="res://ponto_mutacao.png" id="2_icone_mutacao"]
 
 [node name="HudTentativa" type="Control"]
 layout_mode = 3
