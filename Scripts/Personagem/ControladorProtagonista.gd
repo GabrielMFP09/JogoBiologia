@@ -5,9 +5,10 @@ signal vida_alterada(vida_atual: int, vida_maxima: int)
 signal morreu
 
 @export var velocidade: float = 280.0
-@export var forca_pulo: float = 460.0
-@export var tempo_pulo_segurado: float = 0.22
+@export var forca_pulo: float = 440.0
+@export var tempo_pulo_segurado: float = 0.285
 @export_range(0.0, 1.0) var multiplicador_gravidade_pulo_segurado: float = 0.45
+@export_range(0.0, 1.0) var multiplicador_corte_pulo: float = 0.4
 @export var vida_maxima: int = 100
 @export var dano_ataque: int = 10
 @export var alcance_ataque: float = 58.0
@@ -56,17 +57,27 @@ func _physics_process(delta: float) -> void:
 			_direcao_visual = signf(direcao)
 			visual.flip_h = _direcao_visual < 0.0
 
+	var pulo_pressionado := Input.is_action_pressed("pular")
+	var pulo_iniciado := Input.is_action_just_pressed("pular")
+	var pulo_soltado := Input.is_action_just_released("pular")
 	if not is_on_floor():
-		var segurando_pulo := Input.is_action_pressed("pular") and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0
+		if pulo_soltado and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0:
+			velocity.y *= multiplicador_corte_pulo
+			_tempo_pulo_segurado_restante = 0.0
+
+		var segurando_pulo := pulo_pressionado and velocity.y < 0.0 and _tempo_pulo_segurado_restante > 0.0
 		var fator_gravidade := multiplicador_gravidade_pulo_segurado if segurando_pulo else 1.0
 		velocity.y += gravidade * fator_gravidade * delta
 		if segurando_pulo:
 			_tempo_pulo_segurado_restante = maxf(_tempo_pulo_segurado_restante - delta, 0.0)
 		else:
 			_tempo_pulo_segurado_restante = 0.0
-	elif Input.is_action_just_pressed("pular"):
+	elif pulo_iniciado:
 		velocity.y = -forca_pulo
 		_tempo_pulo_segurado_restante = tempo_pulo_segurado
+		if pulo_soltado:
+			velocity.y *= multiplicador_corte_pulo
+			_tempo_pulo_segurado_restante = 0.0
 
 	move_and_slide()
 	if Input.is_action_just_pressed("atacar"):
