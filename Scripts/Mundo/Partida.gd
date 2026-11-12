@@ -3,12 +3,16 @@ extends Node2D
 @onready var hud: HudTentativa = $CamadaInterface/HudTentativa
 @onready var protagonista: ControladorProtagonista = $Protagonista
 
+@export var limite_queda_y: float = 900.0
+
 var estado_tentativa: EstadoTentativa = EstadoTentativa.new()
 var sistema_mutacoes: SistemaProgressaoMutacoes = SistemaProgressaoMutacoes.new()
 var mutacoes_disponiveis: Array[DefinicaoMutacao] = []
+var _posicao_inicial_protagonista: Vector2
 
 
 func _ready() -> void:
+	_posicao_inicial_protagonista = protagonista.global_position
 	_criar_mutacoes()
 	protagonista.vida_alterada.connect(hud.mostrar_vida)
 	protagonista.morreu.connect(_ao_morrer)
@@ -20,6 +24,14 @@ func _ready() -> void:
 		var inseto := no_inseto as Inseto
 		if is_instance_valid(inseto):
 			inseto.derrotado.connect(_ao_derrotar_inseto)
+
+
+func _physics_process(_delta: float) -> void:
+	if protagonista.vida_atual <= 0 or protagonista.global_position.y < limite_queda_y:
+		return
+
+	protagonista.global_position = _posicao_inicial_protagonista
+	protagonista.velocity = Vector2.ZERO
 
 
 func _unhandled_input(evento: InputEvent) -> void:
