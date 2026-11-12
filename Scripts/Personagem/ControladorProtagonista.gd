@@ -16,9 +16,9 @@ signal morreu
 @export var alcance_ataque: float = 58.0
 @export var intervalo_ataque: float = 0.45
 @export var resistencia_dano: int = 0
-@export var forca_ricochete_horizontal: float = 300.0
-@export var forca_ricochete_vertical: float = 180.0
-@export var duracao_ricochete: float = 0.16
+@export var forca_ricochete_horizontal: float = 380.0
+@export var forca_ricochete_vertical: float = 240.0
+@export var duracao_ricochete: float = 0.22
 
 var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var vida_atual: int
@@ -102,7 +102,7 @@ func receber_dano(dano: int) -> void:
 
 func receber_impacto(dano: int, origem: Vector2) -> void:
 	if dano > 0 and not _morto:
-		_mostrar_impacto_dano(Color(1.0, 0.24, 0.38), 32.0, 12)
+		_mostrar_impacto_dano(Color(1.0, 0.24, 0.38), 48.0, 16)
 
 	receber_dano(dano)
 	if _morto:

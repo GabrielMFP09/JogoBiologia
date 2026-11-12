@@ -14,7 +14,7 @@ position = Vector2(0, 6)
 shape = SubResource("FormaColisaoProtagonista")
 
 [node name="Visual" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -9)
 scale = Vector2(0.0511, 0.0511)
 texture_filter = 1
 texture = ExtResource("2_plantinha")

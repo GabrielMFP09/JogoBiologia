@@ -14,9 +14,9 @@ signal derrotado(recompensa_pontos: int)
 @export var resistencia_dano: int = 0
 @export var recompensa_pontos: int = 1
 @export var distancia_percepcao: float = 240.0
-@export var forca_recuo_horizontal: float = 220.0
-@export var forca_recuo_vertical: float = 90.0
-@export var duracao_recuo: float = 0.14
+@export var forca_recuo_horizontal: float = 320.0
+@export var forca_recuo_vertical: float = 140.0
+@export var duracao_recuo: float = 0.2
 
 var vida_atual: int
 var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
@@ -87,7 +87,7 @@ func _mostrar_impacto_dano() -> void:
 	get_tree().current_scene.add_child(efeito)
 	efeito.global_position = global_position + Vector2(0.0, -10.0)
 	efeito.z_index = 10
-	efeito.iniciar(Color(1.0, 0.78, 0.28), 26.0, 10)
+	efeito.iniciar(Color(1.0, 0.78, 0.28), 40.0, 12)
 
 	if is_instance_valid(_tween_luz_dano) and _tween_luz_dano.is_running():
 		_tween_luz_dano.kill()

@@ -12,6 +12,6 @@ script = ExtResource("1_inseto")
 shape = SubResource("FormaColisaoInseto")
 
 [node name="Visual" type="Sprite2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0, -14)
 scale = Vector2(0.0383, 0.0383)
 texture_filter = 1

@@ -52,10 +52,10 @@ flip_h = true
 texture = ExtResource("10_folhagem")
 
 [node name="Protagonista" parent="." unique_id=636102980 instance=ExtResource("1_protagonista")]
-position = Vector2(120, 490)
+position = Vector2(120, 507)
 
 [node name="Vespinha" parent="." unique_id=491895064 instance=ExtResource("5_inseto")]
-position = Vector2(400, 518)
+position = Vector2(400, 520)
 textura = ExtResource("6_vespinha")
 vida_maxima = 18
 velocidade = 125.0
@@ -64,7 +64,7 @@ alcance_ataque = 60.0
 intervalo_ataque = 1.0
 
 [node name="LouvaDeus" parent="." unique_id=612917397 instance=ExtResource("5_inseto")]
-position = Vector2(850, 518)
+position = Vector2(850, 520)
 textura = ExtResource("7_louva_deus")
 vida_maxima = 38
 velocidade = 80.0
@@ -75,7 +75,7 @@ resistencia_dano = 1
 recompensa_pontos = 3
 
 [node name="Lesminha" parent="." unique_id=547656987 instance=ExtResource("5_inseto")]
-position = Vector2(1320, 518)
+position = Vector2(1320, 520)
 textura = ExtResource("8_lesminha")
 vida_maxima = 55
 velocidade = 42.0
