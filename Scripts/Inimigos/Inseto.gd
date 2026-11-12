@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Inseto
 
+const EfeitoImpacto = preload("res://Scripts/Combate/EfeitoImpacto.gd")
+
 signal derrotado(recompensa_pontos: int)
 
 @export var textura: Texture2D
@@ -20,6 +22,7 @@ var vida_atual: int
 var gravidade: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var _tempo_ate_atacar: float = 0.0
 var _tempo_recuo: float = 0.0
+var _tween_luz_dano: Tween
 var _morto: bool = false
 
 @onready var visual: Sprite2D = $Visual
@@ -63,6 +66,10 @@ func receber_dano(dano: int) -> void:
 
 
 func receber_impacto(dano: int, origem: Vector2) -> void:
+	if _morto or dano <= 0:
+		return
+
+	_mostrar_impacto_dano()
 	receber_dano(dano)
 	if _morto:
 		return
@@ -73,6 +80,20 @@ func receber_impacto(dano: int, origem: Vector2) -> void:
 	velocity.x = direcao_recuo * forca_recuo_horizontal
 	velocity.y = -forca_recuo_vertical
 	_tempo_recuo = duracao_recuo
+
+
+func _mostrar_impacto_dano() -> void:
+	var efeito := EfeitoImpacto.new()
+	get_tree().current_scene.add_child(efeito)
+	efeito.global_position = global_position + Vector2(0.0, -10.0)
+	efeito.z_index = 10
+	efeito.iniciar(Color(1.0, 0.78, 0.28), 26.0, 10)
+
+	if is_instance_valid(_tween_luz_dano) and _tween_luz_dano.is_running():
+		_tween_luz_dano.kill()
+	visual.modulate = Color(1.0, 0.86, 0.48)
+	_tween_luz_dano = create_tween()
+	_tween_luz_dano.tween_property(visual, "modulate", Color.WHITE, 0.14).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func _seguir_ou_atacar(alvo: ControladorProtagonista) -> void:

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name ControladorProtagonista
 
+const EfeitoImpacto = preload("res://Scripts/Combate/EfeitoImpacto.gd")
+
 signal vida_alterada(vida_atual: int, vida_maxima: int)
 signal morreu
 
@@ -23,6 +25,7 @@ var vida_atual: int
 var _tempo_ate_atacar: float = 0.0
 var _tempo_ricochete: float = 0.0
 var _tempo_pulo_segurado_restante: float = 0.0
+var _tween_luz_dano: Tween
 var _direcao_visual: float = 1.0
 var _morto: bool = false
 var _velocidade_base: float
@@ -98,6 +101,9 @@ func receber_dano(dano: int) -> void:
 
 
 func receber_impacto(dano: int, origem: Vector2) -> void:
+	if dano > 0 and not _morto:
+		_mostrar_impacto_dano(Color(1.0, 0.24, 0.38), 32.0, 12)
+
 	receber_dano(dano)
 	if _morto:
 		return
@@ -108,6 +114,20 @@ func receber_impacto(dano: int, origem: Vector2) -> void:
 	velocity.x = direcao_recuo * forca_ricochete_horizontal
 	velocity.y = -forca_ricochete_vertical
 	_tempo_ricochete = duracao_ricochete
+
+
+func _mostrar_impacto_dano(cor: Color, raio: float, quantidade_raios: int) -> void:
+	var efeito := EfeitoImpacto.new()
+	get_tree().current_scene.add_child(efeito)
+	efeito.global_position = global_position + Vector2(0.0, -8.0)
+	efeito.z_index = 10
+	efeito.iniciar(cor, raio, quantidade_raios)
+
+	if is_instance_valid(_tween_luz_dano) and _tween_luz_dano.is_running():
+		_tween_luz_dano.kill()
+	visual.modulate = cor.lerp(Color.WHITE, 0.35)
+	_tween_luz_dano = create_tween()
+	_tween_luz_dano.tween_property(visual, "modulate", Color.WHITE, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func aplicar_mutacoes(mutacoes: Array[DefinicaoMutacao]) -> void:
