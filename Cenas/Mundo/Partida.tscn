@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" path="res://Cenas/Interface/HudTentativa.tscn" id="3_hud"]
 [ext_resource type="Script" uid="uid://dtsu080ms4pat" path="res://Scripts/Mundo/Partida.gd" id="4_partida"]
 [ext_resource type="PackedScene" path="res://Cenas/Inimigos/Inseto.tscn" id="5_inseto"]
-[ext_resource type="Texture2D" uid="uid://cnkxg46q2gsw4" path="res://vespinha.png" id="6_vespinha"]
-[ext_resource type="Texture2D" uid="uid://bg5ximme8op0s" path="res://louvaDEUS.png" id="7_louva_deus"]
-[ext_resource type="Texture2D" uid="uid://b25y3q1pprvs8" path="res://lesminha.png" id="8_lesminha"]
+[ext_resource type="Texture2D" path="res://vespinha_aprimorada.png" id="6_vespinha"]
+[ext_resource type="Texture2D" path="res://louva_deus_aprimorado.png" id="7_louva_deus"]
+[ext_resource type="Texture2D" path="res://lesminha_aprimorada.png" id="8_lesminha"]
 [ext_resource type="Texture2D" path="res://fundo_floresta.png" id="9_fundo"]
+[ext_resource type="Texture2D" path="res://folhagem_decorativa.png" id="10_folhagem"]
 
 [node name="Partida" type="Node2D" unique_id=1429135246]
 script = ExtResource("4_partida")
@@ -34,6 +35,21 @@ position = Vector2(370, 430)
 
 [node name="PlataformaAlta" parent="." unique_id=554994716 instance=ExtResource("2_plataforma")]
 position = Vector2(700, 340)
+
+[node name="FolhagemEsquerda" type="Sprite2D" parent="."]
+position = Vector2(255, 495)
+scale = Vector2(0.055, 0.055)
+texture_filter = 1
+z_index = 1
+texture = ExtResource("10_folhagem")
+
+[node name="FolhagemDireita" type="Sprite2D" parent="."]
+position = Vector2(1520, 500)
+scale = Vector2(0.048, 0.048)
+texture_filter = 1
+z_index = 1
+flip_h = true
+texture = ExtResource("10_folhagem")
 
 [node name="Protagonista" parent="." unique_id=636102980 instance=ExtResource("1_protagonista")]
 position = Vector2(120, 490)
